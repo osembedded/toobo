@@ -1,0 +1,13 @@
+This folder contains driver module for a black and white Graphic LCD module with dimensions 128x64 pixels. This was tested with a module that was purchased from sparkfun.com and the LCD module name is GDM12864H.
+
+The LCD connection is very straight forward.
+
+Connect the power and ground pins as required.
+Connect the 8 data pins to the TS7250 LCD port (PORTA - EGPIO 0-7)
+Connect the CS1 pin to EGPIO15 or PORTB:7
+Connect the CS2 pin to EGPIO14 or PORTB:6
+Connect the rest of the pins appropriately.
+It is not necessary to connect the backlight pins if no backlight is needed.
+
+Currently, this driver module was written for Kernel version 2.4 and it does not support pin configuration at insmod time.
+This feature will be added in the future.
