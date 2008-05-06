@@ -1,0 +1,15 @@
+To run this application, you need to insmod the glcd driver module into the kernel first.
+Currently, there is no script which will automatically help you figure out the MAJOR number of the character driver.
+
+Use
+	cat /proc/devices to see what the MAJOR number for the glcd char driver is.
+
+Using this MAJOR number, create a device node in /dev
+
+      mknod /dev/glcd0 c [MAJOR_NUM] 0
+
+Once the above has been done, you can try invoking this application to see if any graphics is displayed on the LCD.
+
+Modify the toobo_base.h file (image data) with a b/w 128x64 pixel wide image to display the image of your choice.
+Currently, there is no command line script provided to convert a given image to the required format. Use the information 
+provided in toobo_base.h to create the necessary bitmap file to be included as a header file.
