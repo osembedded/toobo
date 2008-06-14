@@ -1,19 +1,19 @@
 #labels Featured,Phase-Design,Phase-Requirements
-#Roadmap for toobo Version 1.0 Laika
+#Roadmap for toobo Version 1.0 Laika#
 
 = Proposed Features =
 Laika is going to include preliminary support for the following features - 
-- Monochrome graphic LCD display
-- MP3 audio decoding
-- Linux kernel 2.6
-- USB wireless connectivity
+* Monochrome graphic LCD display
+* MP3 audio decoding
+* Linux kernel 2.6
+* USB wireless connectivity
 
 = Timeline =
 
-- Running Kernel 2.6 on the target - 06-22-08
-- Porting the graphic LCD driver to 2.6 - 06-29-08
-- Preliminary MP3 decoding capability - 07-06-08
-- Working MP3 decoding capability - 07-13-08
-- Investigate USB wireless device - 07-13-08
-- Support for USB wireless device - 07-20-08
-- Release of toobo Version 1.0 Laika 07-27-08
+* Running Kernel 2.6 on the target - 06-22-08
+* Porting the graphic LCD driver to 2.6 - 06-29-08
+* Preliminary MP3 decoding capability - 07-06-08
+* Working MP3 decoding capability - 07-13-08
+* Investigate USB wireless device - 07-13-08
+* Support for USB wireless device - 07-20-08
+* Release of toobo Version 1.0 Laika 07-27-08
