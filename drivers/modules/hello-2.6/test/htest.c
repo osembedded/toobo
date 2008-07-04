@@ -74,6 +74,7 @@ int open_hello(void){
    }
 
    TRACE_OUT;
+   return retval;
 }
 
 int close_hello(void){
@@ -83,6 +84,7 @@ int close_hello(void){
    TRACE_IN;
    if(-1 != close(fd)){
       DBG("fd closed successfully!\n");
+	  retval = SUCCESS;
    }
    else{
       err = errno;
@@ -90,5 +92,6 @@ int close_hello(void){
    }
 
    TRACE_OUT;
+   return retval;
 }
 
