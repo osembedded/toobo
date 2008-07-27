@@ -16,8 +16,11 @@ Laika is going to include preliminary support for the following features -
   * Porting the graphic LCD driver to 2.6 - 06-29-08
     * GLCD Module has been ported for the 2.6 Kernel. Can insert and remove module on the fly.
     * Test application needs to be ported before module can be tested.
-  * Preliminary MP3 decoding capability - 07-06-08
-  * Working MP3 decoding capability - 07-13-08
-  * Investigate USB wireless device - 07-13-08
-  * Support for USB wireless device - 07-20-08
-  * Release of toobo Version 1.0 Laika 07-27-08
+    * GLCD Module has not be ported but has been compiled with the new 2.6 Kernel Make file system and works fine with the test application. - 07-27-08
+
+[Due to various time constraints, the following time line has been updated. 07-27-08]
+  * Preliminary MP3 decoding capability - 08-03-08
+  * Working MP3 decoding capability - 08-17-08 
+  * Investigate USB wireless device - 08-17-08
+  * Support for USB wireless device - 08-24-08
+  * Release of toobo Version 1.0 Laika 08-31-08
