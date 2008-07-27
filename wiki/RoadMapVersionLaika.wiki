@@ -18,7 +18,7 @@ Laika is going to include preliminary support for the following features -
     * Test application needs to be ported before module can be tested.
     * GLCD Module has not be ported but has been compiled with the new 2.6 Kernel Make file system and works fine with the test application. - 07-27-08
 
-[Due to various time constraints, the following time line has been updated. 07-27-08]
+_Due to various time constraints, the following time line has been updated. 07-27-08_
   * Preliminary MP3 decoding capability - 08-03-08
   * Working MP3 decoding capability - 08-17-08 
   * Investigate USB wireless device - 08-17-08
