@@ -67,6 +67,10 @@ HGPIO_5 *3*         - LCD_RW
 /*
  *  Defines
  */
+/* Help prevent updating all of the display pixels
+   everytime to draw a small region. Faster display refresh. */
+#define REDRAW_ENHANCEMENT
+
 // lcd commands
 #define BUSY_FLAG     0x80
 #define DISPLAY_FLAG  0x20
@@ -88,6 +92,16 @@ HGPIO_5 *3*         - LCD_RW
 
 // NOT SURE WHAT THIS IS...
 #define CHAR_HEIGHT 16 //16
+
+/* LCD related */
+#define PHYS_LCD_WIDTH (64 * 2)
+#define PHYS_LCD_HEIGHT (64)
+#define PHYS_VPAGES 8
+#define LCD_WIDTH      128
+#define LCD_HEIGHT     (64/sizeof(char))
+// Local Display Ram for LCD
+char display_ram [LCD_WIDTH] [LCD_HEIGHT];
+char dirty_ram [LCD_WIDTH] [LCD_HEIGHT];
 
 
 // The following is of the format
@@ -139,8 +153,8 @@ static char __set_start_line(char addr);
 
 // 'medium' level lcd draw functions
 // need to clean the names up a bit later...
-void write_pix(unsigned char* dirty_pixels);
-void draw_pix(unsigned int height, unsigned int width, unsigned char* dirty_pixels);
+void write_pix(int pen_x, int pen_y, int height, int width);
+void draw_pix(int pen_x, int pen_y, int height, int width);
 void negate_image(unsigned int height, unsigned int width);
 void pixel(SET_RESET op, int xx, int yy);
 void write_buffer(unsigned char * bitmap,
@@ -149,6 +163,11 @@ void write_buffer(unsigned char * bitmap,
 		  unsigned int pen_x,
 		  unsigned int pen_y,
 		  unsigned char draw_bottom_first);
+#ifdef REDRAW_ENHANCEMENT
+int dirty_area (int cur_x, int cur_y,
+                int pen_x, int pen_y, 
+                int height, int width);
+#endif
 
 /*
  *  Function Definition
@@ -229,6 +248,10 @@ void __lcd_clear(void)
 {
   int ii = 0;
   int nextline = 0;
+
+  /* clear the display ram. Not doing so on clear would leave 
+     a residue on screen the next time something is updated! */ 
+  memset(&display_ram[0][0], 0x00, sizeof(display_ram));
 
   for(nextline = 0; nextline < 8; nextline++)
     {
@@ -471,16 +494,6 @@ char __set_start_line(char addr)
 /*
  *  LCD draw routines.
  */
-#define PHYS_LCD_WIDTH (64 * 2)
-#define PHYS_LCD_HEIGHT (64)
-#define PHYS_VPAGES 8
-
-#define LCD_WIDTH      128
-#define LCD_HEIGHT     (64/sizeof(char))
-
-
-// Local Display Ram for LCD
-char display_ram [LCD_WIDTH] [LCD_HEIGHT];
 
 // Set a pixel
 void pixel(SET_RESET op, int xx, int yy)
@@ -531,13 +544,13 @@ void lcd_draw_bitmap(unsigned char *bitmap,
 		     int width,
 		     unsigned char draw_bottom_first)
 {
-   TRACE;
+//   TRACE;
 
   // format the data into the way we want.
   write_buffer(bitmap, height, width, pen_x, pen_y, draw_bottom_first);
 
   // write the data into the lcd
-  draw_pix(height, width, bitmap);
+  draw_pix(pen_x, pen_y, height, width);
 
 }
 
@@ -552,7 +565,7 @@ void write_buffer(unsigned char * bitmap,
   int yy = 0;
   int idx = 0;
   
-  TRACE;
+//  TRACE;
   if(((pen_x + width) > PHYS_LCD_WIDTH) ||
      ((pen_y + height) > PHYS_LCD_HEIGHT))
     {
@@ -599,22 +612,44 @@ void write_buffer(unsigned char * bitmap,
     }
 }
 
-void draw_pix(unsigned int height, unsigned int width, unsigned char* dirty_pixels)
+void draw_pix(int pen_x, int pen_y, int height, int width)
 {
   // Disable the LCD
+#ifndef REDRAW_ENHANCEMENT
   SEL_PAGE_ALL;
   __command(DISPLAY_OFF);
+#endif 
 
   //write to LCD DDRAM
-  write_pix(dirty_pixels);
+  write_pix( pen_x,
+             pen_y,
+             height,
+             width);
 
   // Enable the LCD
+#ifndef REDRAW_ENHANCEMENT
   SEL_PAGE_ALL;
   __command(DISPLAY_ON);
+#endif
 }
 
+#ifdef REDRAW_ENHANCEMENT
+int dirty_area (int cur_x, int cur_y,
+                int pen_x, int pen_y, 
+                int height, int width){
+
+   if((cur_x >= pen_x && cur_x < (pen_x + width)) &&
+      (cur_y >= (pen_y/8) && cur_y < ((pen_y/8) + height))){
+      return true;
+   }
+   else{
+      return false;
+   }
+}
+#endif
+
 #define HALF_LCD_WIDTH (LCD_WIDTH / 2)
-void write_pix(unsigned char* dirty_pixels)
+void write_pix(int pen_x, int pen_y, int height, int width)
 {
   int xx = 0;
   int yy = 0;
@@ -627,15 +662,25 @@ void write_pix(unsigned char* dirty_pixels)
       {
 	if(xx < HALF_LCD_WIDTH)
 	  {
-	    SEL_PAGEA;
-	    __command(__set_yaddr(xx));
-	    __lcd_writedata(PAGE_A, display_ram[xx][yy]);
+#ifdef REDRAW_ENHANCEMENT
+            if(dirty_area(xx, yy, pen_x, pen_y, height, width))
+#endif
+            {
+               SEL_PAGEA;
+               __command(__set_yaddr(xx));
+               __lcd_writedata(PAGE_A, display_ram[xx][yy]);
+            }
 	  }
 	else
 	  {
-	    SEL_PAGEB;
-	    __command(__set_yaddr(xx-HALF_LCD_WIDTH));
-	    __lcd_writedata(PAGE_B, display_ram[xx][yy]);
+#ifdef REDRAW_ENHANCEMENT
+             if(dirty_area(xx, yy, pen_x, pen_y, height, width))
+#endif
+             {
+                SEL_PAGEB;
+                __command(__set_yaddr(xx-HALF_LCD_WIDTH));
+                __lcd_writedata(PAGE_B, display_ram[xx][yy]);
+             }
 	  }
       }
   }
