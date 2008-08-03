@@ -20,13 +20,7 @@
 /*
  *  Kernel Header files
  */
-/* 2.6 */
 #include <linux/module.h>
-#include <linux/types.h>  /* dev_t is defined here */
-#include <linux/kdev_t.h> /* MAJOR and MINOR macros are defined here */
-#include <linux/cdev.h>
-
-/* 2.4 */
 #include <linux/init.h>
 #include <linux/fs.h>    /* register chrdev region defined here */
 #include <linux/slab.h>
@@ -47,7 +41,6 @@
  */
 static struct _glcdinfo{
       char iomem_obtained;
-      struct cdev _cdev;
 }_ginfo;
 
 /*
@@ -91,33 +84,19 @@ MODULE_DESCRIPTION("GLCD Driver for the TS7250 board");
 MODULE_SUPPORTED_DEVICE("GLCD");
 MODULE_LICENSE("LGPL");
 
-/* 2.6 */
-dev_t device;
-int major_num_count = 1;
-
 static int __init glcd_init(void)
 {
    TRACE;
 
-   /* 2.6 */
-   if(0 != alloc_chrdev_region(&device, 0, major_num_count, DRIVER_NAME))
+   if((major_num = register_chrdev(0, DRIVER_NAME, &glcd_fops)) < 0)
    {
-      ERR("register_chrdev failed for %s.", DRIVER_NAME);
+      ERR("register_chrdev failed (%d) for %s.", major_num, DRIVER_NAME);
       return -EIO;
    }
    else
    {
-      major_num = MAJOR(device);
       DBG("Successfully registered char driver(%s). Major Number alloted: %d.", DRIVER_NAME, major_num);
 
-      /* 2.6 */
-      /* Register the Char driver and initialize */
-      cdev_init(&_ginfo._cdev, &glcd_fops);
-      if(cdev_add(&_ginfo._cdev, 0, 1) < 0){
-         ERR("cdev_add failed for %s.", DRIVER_NAME);
-         return -EIO;
-      }
-      
       /* Obtain any iomem needed. */
       if(glcd_get_iomem() == 0)
       {
@@ -136,13 +115,14 @@ static void __exit glcd_cleanup(void)
 {
    TRACE;
 
-   /* 2.6 */
-   /* delete the device first */
-   cdev_del(&_ginfo._cdev);
-
-   /* unregister the device number */
-   if(major_num > 0){
-      unregister_chrdev_region(device, major_num_count); /* doesn't return anything */
+   if(major_num > 0 &&
+      unregister_chrdev(major_num, "glcd") < 0)
+   {
+      ERR("unregister_chrdev failed for a major num of %d.", major_num);
+   }
+   else
+   {
+      DBG("Successfully un-registered char driver(%s) with major number %d.", DRIVER_NAME, major_num);
    }
 
    /* Release any iomem obtained. */
@@ -191,8 +171,8 @@ static int glcd_ioctl(struct inode* inp, struct file* filp, unsigned int cmd, un
 {
    int retval = -1;
 
-   TRACE;
-   printk(KERN_ERR "ioctl");
+//   TRACE;
+//   printk(KERN_ERR "ioctl");
 
    retval = handle_ioctl(cmd, data);
 
@@ -204,9 +184,9 @@ static int glcd_ioctl(struct inode* inp, struct file* filp, unsigned int cmd, un
  */
 static int handle_ioctl(unsigned int cmd, unsigned long data)
 {
-   TRACE;
+//   TRACE;
 
-   printk(KERN_ERR "handle_ioctl: cmd = %du.",cmd);
+//   printk(KERN_ERR "handle_ioctl: cmd = %du.",cmd);
 
    switch(cmd)
    {
