@@ -9,9 +9,10 @@ This page would be updated as and when the inscript.sh file is modified especial
 = Details =
 The directory structure surrounding inscript is as follows -
 
+{{{
 scripts-+
         |
-        +---inscript.sh (core script file)
+        +--inscript.sh (core script file)
         |
         +-+-toobo.v.1.0 (directory)
         |  |
@@ -25,6 +26,7 @@ scripts-+
           +--glcd.drv.params
           +--audio.drv.params
           +--keypad.drv.params
+}}}
 
 The following is an extract from the header section of the inscript.sh file.
 
