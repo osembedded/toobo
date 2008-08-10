@@ -211,18 +211,4 @@ fi
 
 ### End of 'code' ###
 
-## Remove old nodes if any ##
-##rm -f /dev/${device}
-
-## Insmod the new driver ##
-##insmod ./glcd
-
-## Find the major number first ##
-##major=awk '/([0-255]?) ($device?)/ {print $1}' /proc/devices
-
-## create new node for the major number obtained ##
-##mknod /dev/$device c $major 0
-
-## need to change permision so that a 'user' can use it ##
-
 exit 0
