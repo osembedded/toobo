@@ -1,0 +1,10 @@
+enabled:false
+metaname:"STA015 MP3 decoder with CS4341 DAC Driver"
+modsrcpath:	
+modname:sta015_csa4341.ko
+devname:audio
+devtype:b
+nodename:/dev/audio0
+devperm:
+devgroup:
+modparams:	
