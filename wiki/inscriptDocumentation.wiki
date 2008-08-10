@@ -29,7 +29,7 @@ scripts-+
 }}}
 
 The following is an extract from the header section of the inscript.sh file.
-
+{{{
 # Shell script to insmod any custom driver module for toobo
 # Usage -
 #         ./inscript PATH_TO_GEN_SETTINGS_FILE
@@ -69,3 +69,4 @@ The following is an extract from the header section of the inscript.sh file.
 # inserted. But this would be a nightmare as far as source conrol 
 # is concerned. So... this approach is not recommended and future 
 # versions of inscript will support module loading order.
+}}}
