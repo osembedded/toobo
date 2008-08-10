@@ -153,12 +153,6 @@ insertModules(){
 
 }
 
-# Find all the settings file in the directory 
-# we are interested in.
-findDriverSettingFiles(){
-    echo;
-}
-
 handleFormat_1_0(){
 #    echo handleFormat_1_0;
     BASEPATH=`retValue $1 basepath`;
