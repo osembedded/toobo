@@ -1,0 +1,7 @@
+This folder will contain
+     - code
+     - startup scripts
+     
+for starting the toobo 'application' code.
+
+Some drivers may be loaded before this code and scripts get executed and sometimes need may arise to insert some drivers on the fly during application startup rather than before application startup. This will be handled here as well.
