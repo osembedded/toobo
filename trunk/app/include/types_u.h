@@ -26,15 +26,15 @@
 #ifndef __TYPES_U_H__
 #define __TYPES_U_H__
 
-typedef INT32    int;
-typedef UINT32   unsigned int;
-typedef CHAR     char;
-typedef UCHAR    unsigned char;
-typedef LONG     long;
-typedef ULONG    unsigned long;
-typedef SHORT    short;
-typedef USHORT   unsigned short;
-typedef VOID     void;
-typedef BOOL     boolean;
+typedef int              INT32;
+typedef unsigned int     UINT32;
+typedef char             CHAR;
+typedef unsigned char    UCHAR;
+typedef long             LONG;
+typedef unsigned long    ULONG;
+typedef short            SHORT;
+typedef unsigned short   USHORT;
+typedef void             VOID;
+typedef boolean          BOOL;
 
 #endif /* __TYPES_U_H__ */
