@@ -1,0 +1,14 @@
+README - 
+This file will document some notes on design decisions, features of the application code of toobo.
+
+File suffixes and meanings - 
+_u - utility file.
+_p - contains code for a process.
+_d - contains code for a daemon.
+
+Logging - 
+Initially, each process logs its debug messages to a named pipe.
+There is a script that would redirect the messages written to these named pipes to appropriate files on disk.
+In the future, during debug mode, a 'log interleaver' process would listen to all the named pipes (used for logging) and interleave the output into a single log file.
+
+
