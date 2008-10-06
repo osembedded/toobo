@@ -1,5 +1,5 @@
 /**
- * [startupMgr_p.c] [Part of the TOOBO Project]
+ * [paths_u.h] [Part of the TOOBO Project]
  * 
  * Copyright 2008 Vijay Jayaraman (osembedded@gmail.com) 
  * 
@@ -18,23 +18,22 @@
  **/
 /**
  * Purpose:
- * This file contains code for the startupMgr process.
- * The '_p' in the filename indicates this. 
+ * This file contains file/dir path information that is 'global' to the
+ * system.
  */
 
-#include <stdio.h>
-#include <string.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
+#ifndef __PATHS_U__
+#define __PATHS_U__
 
-#include "startupMgr.h"
-
-INT main (INT argc, CHAR** argv){
-   
-
-
-}
-
+/* Log path for various process */
+#define LOG_PIPE_ROOT                "/logpipes/"
+#define STARTUP_MGR_LOG_PIPE_PATH    (LOG_PIPE_ROOT"startupMgr")
+#define SCREEN_MGR_LOG_PIPE_PATH     (LOG_PIPE_ROOT"screenMgr")
+#define INPUT_MGR_LOG_PIPE_PATH      (LOG_PIPE_ROOT"inputMgr")
+#define SOUND_MGR_LOG_PIPE_PATH      (LOG_PIPE_ROOT"soundMgr")
+#define CTRL_MGR_LOG_PIPE_PATH       (LOG_PIPE_ROOT"ctrlMgr")
+#define SHUTDOWN_MGR_LOG_PIPE_PATH   (LOG_PIPE_ROOT"shutdownMgr")
+#define STANDBY_MGR_LOG_PIPE_PATH    (LOG_PIPE_ROOT"standbyMgr")
 
 
+#endif /* __PATHS_U__ */
