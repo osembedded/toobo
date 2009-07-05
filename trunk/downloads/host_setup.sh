@@ -1,6 +1,6 @@
 #!/bin/bash
 ##########################################################################
-# patch_source.sh [Part of the TOOBO project]
+# host_setup.sh [Part of the TOOBO project]
 # 
 # Copyright 2008 Vijay Jayaraman (osembedded@gmail.com) 
 # 
