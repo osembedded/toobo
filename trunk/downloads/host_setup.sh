@@ -1,7 +1,33 @@
 #!/bin/bash
-
-## This script will help you download and extract the appropriate 
-## kernel source and toolchains for your build.
+##########################################################################
+# patch_source.sh [Part of the TOOBO project]
+# 
+# Copyright 2008 Vijay Jayaraman (osembedded@gmail.com) 
+# 
+# This program is free software: you can redistribute it and/or modify 
+# it under the terms of the GNU Lesser General Public License as published by 
+# the Free Software Foundation, either version 3 of the License, or 
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful, 
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+# GNU Lesser General Public License for more details. 
+# 
+# You should have received a copy of the GNU Lesser General Public License 
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+##########################################################################
+#
+# Shell script that helps to setup the correct toolchain and the 
+# appropriate kernel source to the host/development pc.
+#
+# Usage -
+#         ./host_setup.sh
+#
+# Note  -
+# This file uses the other scripts present in the script directory 
+# to download files and patch them appropriately.
+#
 
 ## Directory variables
 TOP_LEVEL_DIR=..

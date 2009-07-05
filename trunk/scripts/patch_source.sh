@@ -1,9 +1,32 @@
 #!/bin/bash
-## This file will apply all the patch files from 
-## the patch_dir to the source_dir
-## Note: this script assumes that the patch needs 
-## to be applied from the directory above the patch
-## directory.
+#########################################################################
+# patch_source.sh [Part of the TOOBO project]
+# 
+# Copyright 2008 Vijay Jayaraman (osembedded@gmail.com) 
+# 
+# This program is free software: you can redistribute it and/or modify 
+# it under the terms of the GNU Lesser General Public License as published by 
+# the Free Software Foundation, either version 3 of the License, or 
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful, 
+# but WITHOUT ANY WARRANTY; without even the implied warranty of 
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
+# GNU Lesser General Public License for more details. 
+# 
+# You should have received a copy of the GNU Lesser General Public License 
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+##########################################################################
+#
+# Shell script to patch a source directory with diff files from a patch directory
+# Usage -
+#         ./patch_source.sh <source_dir_to_patch> <patch_dir>
+#
+# Note  - 
+# This script assumes that the patch needs to be applied from the directory 
+# immediately above the source directory. i.e. the parent directory of the 
+# source directory
+#
 
 if [ $# -lt 2 ]
 then
