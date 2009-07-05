@@ -9,6 +9,7 @@ fi
 echo "Downloading the file to $2"
 mkdir -p $2
 wget --directory-prefix=$2 $1
+
 if [ $? -ne 0 ]
 then
  # wget failed for some reason...
