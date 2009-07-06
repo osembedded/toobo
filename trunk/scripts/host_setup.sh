@@ -76,6 +76,12 @@ ln -s $KERNEL_SOURCES_DIR/$KERNEL_ARCHIVE_NAME $KERNEL_SOURCES_DIR/$SYM_LINK_KER
 echo "Patching the Kernel source..."
 sh $SCRIPTS_DIR/$PATCH_SCRIPT $KERNEL_SOURCES_DIR/$KERNEL_ARCHIVE_NAME $PATCHES_DIR/$KERNEL_ARCHIVE_NAME
 
+if [ $? -ne 0 ]
+then
+    echo "Something went wrong while patching the kernel source!"
+    exit 1
+fi
+
 ## Download the toolchain
 echo "Downloading the toolchain source..."
 sh $SCRIPTS_DIR/$DOWNLOAD_SCRIPT $BASE_URI/$TOOLCHAIN_ARCHIVE_NAME$TAR_GZ $DOWNLOAD_DIR

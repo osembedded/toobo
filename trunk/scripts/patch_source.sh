@@ -54,4 +54,9 @@ for i in `ls $2`
 do
 echo "Applying Patch: $i"
 patch -p0 --directory=$1/.. < $2/$i
+if [ $? -ne 0 ]
+then
+echo "Error while patching..."
+exit 1
+fi
 done
