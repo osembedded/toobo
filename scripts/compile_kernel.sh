@@ -35,6 +35,13 @@ exit 1
 fi
 
 echo "Toolchain Directory: $1"
+
+if [ ! -d $1 ]
+then
+echo "Toolchain directory: $1 does not exist!"
+exit 1
+fi
+
 export CROSS_COMPILE=$1 
 make ts72xx_defconfig && make
 
