@@ -34,13 +34,7 @@ echo "Error: Usage: $0 <toolchain_dir>"
 exit 1
 fi
 
-echo "Toolchain Directory: $1"
-
-if [ ! -d $1 ]
-then
-echo "Toolchain directory: $1 does not exist!"
-exit 1
-fi
+echo "CROSS_COMPILE prefix: $1"
 
 export CROSS_COMPILE=$1 
 make ts72xx_defconfig && make
