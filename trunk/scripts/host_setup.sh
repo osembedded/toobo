@@ -61,7 +61,7 @@ fi
 
 ## Extract the kernel source to the appropriate directory
 echo "Extracting the Kernel source..."
-tar -xzf $KERNEL_ARCHIVE_NAME$TAR_GZ -C $KERNEL_SOURCES_DIR
+tar -xzf $DOWNLOAD_DIR/$KERNEL_ARCHIVE_NAME$TAR_GZ -C $KERNEL_SOURCES_DIR
 if [ $? -ne 0 ]
 then
     echo "Something went wrong while extracting the kernel source!"
@@ -87,7 +87,7 @@ fi
 
 echo "Extracting the Toolchain..."
 ## Extract the toolchain to the appropriate directory.
-tar -xzf $TOOLCHAIN_ARCHIVE_NAME$TAR_GZ -C $TOOLCHAIN_DIR
+tar -xzf $DOWNLOAD_DIR/$TOOLCHAIN_ARCHIVE_NAME$TAR_GZ -C $TOOLCHAIN_DIR
 
 if [ $? -ne 0 ]
 then
