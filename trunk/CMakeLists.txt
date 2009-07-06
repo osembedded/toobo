@@ -1,23 +1,41 @@
-cmake_minimum_required(VERSION 2.6)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 ## Currently this system only supports unix like operating systems.
-if ( NOT ${CMAKE_HOST_UNIX} )
-  EchoString("This build is supported only on UNIX like platforms")
-  return()
-endif ( NOT ${CMAKE_HOST_UNIX} )
+IF ( NOT ${CMAKE_HOST_UNIX} )
+  MESSAGE("This build is supported only on UNIX like platforms")
+  RETURN()
+ENDIF ( NOT ${CMAKE_HOST_UNIX} )
 
-project(toobo)
+PROJECT(toobo)
+
+## Setup Kernel version
+SET ( KERNEL_NAME linux-2.6.21-ts )
 
 ## Setup directory variables
 SET ( SCRIPT_DIR ${CMAKE_HOME_DIRECTORY}/scripts )
 SET ( DRIVERS_DIR ${CMAKE_HOME_DIRECTORY}/drivers )
-SET ( KERNEL_SRC_DIR ${CMAKE_HOME_DIRECTORY}/kernel )
-SET ( TOOLCHAIN_DIR ${CMAKE_HOME_DIRECTORY}/toolchains/arm-none-linux-gnueabi/bin/ )
+SET ( KERNEL_SOURCES_DIR ${CMAKE_HOME_DIRECTORY}/kernel )
+SET ( TOOLCHAIN_DIR ${CMAKE_HOME_DIRECTORY}/toolchains )
 SET ( APP_SRC_DIR ${CMAKE_HOME_DIRECTORY}/app )
 SET ( DOWNLOADS_DIR ${CMAKE_HOME_DIRECTORY}/downloads )
+SET ( KERNEL_DIR ${KERNEL_SOURCES_DIR}/${KERNEL_NAME} )
+SET ( KERNEL_IMAGE_DIR ${KERNEL_DIR}/arch/arm/boot )
 
-### Set up Env variables
-Set(KERNEL_DIR kernel/linux-2.6.21-ts)
+## Setup file-name variables
+SET ( KERNEL_IMAGE_NAME zImage )
 
-add_subdirectory(drivers)
-add_subdirectory(app)
+## Environment variables
+SET ( CROSS_COMPILE ${TOOLCHAIN_DIR}/arm-none-linux-gnueabi/bin/arm-none-linux-gnueabi- )
+
+## Build the kernel first if not already built.
+IF ( EXISTS ${KERNEL_IMAGE_DIR}/${KERNEL_IMAGE_NAME} )
+ MESSAGE("Kernel already built. Skipping...")
+ELSE ( EXISTS ${KERNEL_IMAGE_DIR}/${KERNEL_IMAGE_NAME} )
+ MESSAGE("Building Kernel...")
+ EXECUTE_PROCESS( COMMAND ${SCRIPT_DIR}/compile_kernel.sh ${CROSS_COMPILE}
+   WORKING_DIRECTORY ${KERNEL_DIR})
+ MESSAGE("Done Building...")
+ENDIF ( EXISTS ${KERNEL_IMAGE_DIR}/${KERNEL_IMAGE_NAME} )
+
+ADD_SUBDIRECTORY(drivers)
+ADD_SUBDIRECTORY(app)
