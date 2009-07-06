@@ -16,6 +16,7 @@ SET ( SCRIPT_DIR ${CMAKE_HOME_DIRECTORY}/scripts )
 SET ( DRIVERS_DIR ${CMAKE_HOME_DIRECTORY}/drivers )
 SET ( KERNEL_SOURCES_DIR ${CMAKE_HOME_DIRECTORY}/kernel )
 SET ( TOOLCHAIN_DIR ${CMAKE_HOME_DIRECTORY}/toolchains )
+SET ( TOOLCHAIN_BIN_DIR ${TOOLCHAIN_DIR}/arm-none-linux-gnueabi/bin )
 SET ( APP_SRC_DIR ${CMAKE_HOME_DIRECTORY}/app )
 SET ( DOWNLOADS_DIR ${CMAKE_HOME_DIRECTORY}/downloads )
 SET ( KERNEL_DIR ${KERNEL_SOURCES_DIR}/${KERNEL_NAME} )
@@ -26,6 +27,17 @@ SET ( KERNEL_IMAGE_NAME zImage )
 
 ## Environment variables
 SET ( CROSS_COMPILE ${TOOLCHAIN_DIR}/arm-none-linux-gnueabi/bin/arm-none-linux-gnueabi- )
+
+## Check to see if the toolchain and the kernel sources are in place first.
+IF ( NOT EXISTS ${KERNEL_DIR} )
+ MESSAGE("Please install the kernel source by running ./scripts/host_setup.sh")
+ RETURN()
+ENDIF ( NOT EXISTS ${KERNEL_DIR} )
+
+IF ( NOT EXISTS ${TOOLCHAIN_BIN_DIR} )
+ MESSAGE("Please install the toolchain by running ./scripts/host_setup.sh")
+ RETURN()
+ENDIF ( NOT EXISTS ${TOOLCHAIN_BIN_DIR} )
 
 ## Build the kernel first if not already built.
 IF ( EXISTS ${KERNEL_IMAGE_DIR}/${KERNEL_IMAGE_NAME} )
