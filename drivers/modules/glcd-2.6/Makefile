@@ -1,3 +1,4 @@
+export CROSS_COMPILE=/home/vijay/toobo/toobo/toolchains/arm-none-linux-gnueabi/bin/arm-none-linux-gnueabi-
 
 ifneq ($(KERNELRELEASE),)
 	obj-m := graphiclcd.o
