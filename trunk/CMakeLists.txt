@@ -11,16 +11,13 @@ PROJECT(toobo)
 ## Setup Kernel version
 SET ( KERNEL_NAME linux-2.6.21-ts )
 
+SET ( CMAKE_DIR cmake )
+
 ## Setup directory variables
-SET ( SCRIPT_DIR ${CMAKE_HOME_DIRECTORY}/scripts )
-SET ( DRIVERS_DIR ${CMAKE_HOME_DIRECTORY}/drivers )
-SET ( KERNEL_SOURCES_DIR ${CMAKE_HOME_DIRECTORY}/kernel )
-SET ( TOOLCHAIN_DIR ${CMAKE_HOME_DIRECTORY}/toolchains )
-SET ( TOOLCHAIN_BIN_DIR ${TOOLCHAIN_DIR}/arm-none-linux-gnueabi/bin )
-SET ( APP_SRC_DIR ${CMAKE_HOME_DIRECTORY}/app )
-SET ( DOWNLOADS_DIR ${CMAKE_HOME_DIRECTORY}/downloads )
-SET ( KERNEL_DIR ${KERNEL_SOURCES_DIR}/${KERNEL_NAME} )
-SET ( KERNEL_IMAGE_DIR ${KERNEL_DIR}/arch/arm/boot )
+INCLUDE ( ${CMAKE_DIR}/paths.cmake )
+
+## Setup the toolchain
+INCLUDE ( ${CMAKE_DIR}/toolchain.cmake )
 
 ## Setup file-name variables
 SET ( KERNEL_IMAGE_NAME zImage )
@@ -50,3 +47,4 @@ ENDIF ( EXISTS ${KERNEL_IMAGE_DIR}/${KERNEL_IMAGE_NAME} )
 
 ADD_SUBDIRECTORY(drivers)
 ADD_SUBDIRECTORY(app)
+ADD_SUBDIRECTORY(tests)
