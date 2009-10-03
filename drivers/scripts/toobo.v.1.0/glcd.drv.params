@@ -1,6 +1,6 @@
 enabled:true
 metaname:"128x64 MonoChrome Graphic LCD Driver"
-modsrcpath:/home/proj/googlecode/toobo-08-03-08/toobo/drivers/modules/glcd-2.6
+modsrcpath:../modules/glcd-2.6
 koname:graphiclcd.ko
 devname:glcd
 devtype:c
