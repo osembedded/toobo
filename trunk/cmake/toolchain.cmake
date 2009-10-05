@@ -4,8 +4,8 @@ SET ( CMAKE_SYSTEM_NAME Linux )
 SET(CMAKE_SYSTEM_VERSION 1)
 
 # specify the cross compiler
-SET ( CMAKE_C_COMPILER   ${TOOLCHAIN_DIR}/arm-none-linux-gnueabi/bin/arm-none-linux-gnueabi-gcc )
-SET ( CMAKE_CXX_COMPILER ${TOOLCHAIN_DIR}/arm-none-linux-gnueabi/bin/arm-none-linux-gnueabi-g++ )
+SET ( CMAKE_C_COMPILER   ${CROSS_COMPILE}gcc )
+SET ( CMAKE_CXX_COMPILER ${CROSS_COMPILE}g++ )
 
 # where is the target environment 
 SET ( CMAKE_FIND_ROOT_PATH  ${TARGET_ENV} )

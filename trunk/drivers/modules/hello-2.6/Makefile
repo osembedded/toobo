@@ -1,4 +1,6 @@
-export CROSS_COMPILE=/home/vijay/toobo/toobo/toolchains/arm-none-linux-gnueabi/bin/arm-none-linux-gnueabi-
+#export CROSS_COMPILE=/home/vijay/toobo/toobo/toolchains/arm-none-linux-gnueabi/bin/arm-none-linux-gnueabi-
+#export CROSS_COMPILE=/home/vijay/toobo/toobo/toolchains/arm-linux/gcc-3.3.4-glibc-2.3.2/bin/arm-linux-
+export CROSS_COMPILE=/home/vijay/toobo/toobo/toolchains/gcc-4.0.2-glibc-2.3.2/arm-unknown-linux-gnu/bin/arm-unknown-linux-gnu-
 
 ifneq ($(KERNELRELEASE),)
 	obj-m := hello.o
