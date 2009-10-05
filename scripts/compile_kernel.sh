@@ -37,7 +37,8 @@ fi
 echo "CROSS_COMPILE prefix: $1"
 
 export CROSS_COMPILE=$1 
-make ts72xx_defconfig && make bzImage
+#make ts72xx_defconfig && make bzImage
+make toobo.1.0_defconfig && make bzImage
 
 if [ $? -ne 0 ]
 then
